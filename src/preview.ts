@@ -11,7 +11,7 @@ export class previewViewProvider implements vscode.WebviewViewProvider {
 
     public resolveWebviewView(webviewView: vscode.WebviewView, context: vscode.WebviewViewResolveContext, _token: vscode.CancellationToken): Thenable<void> | void {
         this._view = webviewView;
-        
+
         webviewView.webview.options = {
             enableScripts: true,
             localResourceRoots: [
@@ -21,6 +21,10 @@ export class previewViewProvider implements vscode.WebviewViewProvider {
         };
 
         webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
+
+        vscode.commands.registerCommand('tokenCraft.preview', (message) => {
+            webviewView.webview.postMessage(message);
+        });
     }
 
     private _getHtmlForWebview(webview: vscode.Webview): string {

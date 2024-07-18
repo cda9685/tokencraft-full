@@ -11,13 +11,21 @@ export class tokenQueryViewProvider implements vscode.WebviewViewProvider {
 
     public resolveWebviewView(webviewView: vscode.WebviewView, context: vscode.WebviewViewResolveContext, token: vscode.CancellationToken): Thenable<void> | void {
         this._view = webviewView;
-        
+
         webviewView.webview.options = {
             enableScripts: true,
             localResourceRoots: [this._extensionUri]
         };
 
         webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
+
+        webviewView.webview.onDidReceiveMessage(message => {
+            switch (message.command) {
+                case 'generate':
+                    vscode.commands.executeCommand('tokenCraft.preview', message);
+                    break;
+            }
+        });
     }
 
     private _getHtmlForWebview(webview: vscode.Webview): string {

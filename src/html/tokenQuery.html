@@ -30,12 +30,15 @@
 
         <script>
             const vscode = acquireVsCodeApi();
-
             document.getElementById('generate-button').addEventListener('click', () => {
                 const componentType = document.getElementById('component-type').value;
                 const color = document.getElementById('color').value;
                 
-                vscode.postMessage({ command: 'updatePreview', componentType, color });
+                vscode.postMessage({
+                    command: 'generate',
+                    componentType: componentType,
+                    color: color
+                });
             });
         </script>
     </body>
