@@ -1,13 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Assist</title>
-    <link rel="stylesheet" type="text/css" href="{{styleMainUri}}">
-</head>
-<body>
-    <h1>Content</h1>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AI Assist</title>
+        <link rel="stylesheet" type="text/css" href="{{styleMainUri}}">
+    </head>
+    <body>
+        <p>Welcome to TokenCraft! Let's find the perfect design token for your needs. I'll ask you a few questions to narrow down your options.</p>
+        <p>Please provide as much information as possible about your design token:</p>
+        <form id="prompt-form">
+            <input type="text" id="prompt" name="prompt" placeholder="Enter your query here...">
+            <button type="submit">Submit</button>
+        </form>
+
+        <script>
+            const vscode = acquireVsCodeApi();
+
+            document.getElementById('prompt-form').addEventListener('submit', (event) => {
+                event.preventDefault();
+                const prompt = document.getElementById('prompt').value;
+                vscode.postMessage({ command: 'submitPrompt', text: prompt });
+                document.getElementById('prompt').value = '';  // Clear the input field
+            });
+        </script>
+    </body>
 </html>

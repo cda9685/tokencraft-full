@@ -14,7 +14,10 @@ export class previewViewProvider implements vscode.WebviewViewProvider {
         
         webviewView.webview.options = {
             enableScripts: true,
-            localResourceRoots: [this._extensionUri]
+            localResourceRoots: [
+                vscode.Uri.joinPath(this._extensionUri, 'media'),
+                vscode.Uri.joinPath(this._extensionUri, 'src/html')
+            ]
         };
 
         webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);

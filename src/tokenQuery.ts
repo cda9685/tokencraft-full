@@ -5,9 +5,13 @@ import * as fs from 'fs';
 export class tokenQueryViewProvider implements vscode.WebviewViewProvider {
     public static readonly viewType = 'tokenCraft.tokenQuery';
 
+    private _view?: vscode.WebviewView;
+
     constructor(private readonly _extensionUri: vscode.Uri) {}
 
     public resolveWebviewView(webviewView: vscode.WebviewView, context: vscode.WebviewViewResolveContext, token: vscode.CancellationToken): Thenable<void> | void {
+        this._view = webviewView;
+        
         webviewView.webview.options = {
             enableScripts: true,
             localResourceRoots: [this._extensionUri]

@@ -14,10 +14,18 @@ export class aiAssistViewProvider implements vscode.WebviewViewProvider {
         
         webviewView.webview.options = {
             enableScripts: true,
-            localResourceRoots: [this._extensionUri]
+            localResourceRoots: [vscode.Uri.joinPath(this._extensionUri, 'media')]
         };
 
         webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
+
+        webviewView.webview.onDidReceiveMessage(message => {
+            switch (message.command) {
+                case 'submitPrompt':
+                    vscode.window.showInformationMessage(`Prompt received: ${message.text}`);
+                    return;
+            }
+        });
     }
 
     private _getHtmlForWebview(webview: vscode.Webview): string {

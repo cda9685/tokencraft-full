@@ -1,13 +1,58 @@
 <!DOCTYPE html>
-
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preview</title>
-    <link rel="stylesheet" type="text/css" href="{{styleMainUri}}">
-</head>
-<body>
-    <h1>Content</h1>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Preview</title>
+        <link rel="stylesheet" type="text/css" href="{{styleMainUri}}">
+        <style>
+            .preview-container {
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <form id="component-form">
+            <label for="component-type">Component Type</label>
+            <select id="component-type">
+                <option value="" disabled selected>Select</option>
+                <option value="button">Button</option>
+                <!-- Add more component types as needed -->
+            </select>
+            
+            <label for="color">Color</label>
+            <select id="color">
+                <option value="" disabled selected>Select</option>
+                <option value="blue">Blue</option>
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+                <!-- Add more colors as needed -->
+            </select>
+            
+            <button type="button" id="generate-button">Generate</button>
+        </form>
+
+        <div class="preview-container" id="preview-container">
+            <!-- Preview will be displayed here -->
+        </div>
+
+        <script>
+            document.getElementById('generate-button').addEventListener('click', () => {
+                const componentType = document.getElementById('component-type').value;
+                const color = document.getElementById('color').value;
+                const previewContainer = document.getElementById('preview-container');
+                
+                previewContainer.innerHTML = ''; // Clear previous preview
+
+                if (componentType === 'button') {
+                    const button = document.createElement('button');
+                    button.textContent = 'Button';
+                    button.style.backgroundColor = color;
+                    previewContainer.appendChild(button);
+                }
+
+                // Add more component generation logic as needed
+            });
+        </script>
+    </body>
 </html>
