@@ -21,12 +21,12 @@ export class aiAssistViewProvider implements vscode.WebviewViewProvider {
     }
 
     private _getHtmlForWebview(webview: vscode.Webview): string {
+        const htmlPath = path.join(this._extensionUri.fsPath, 'src', 'html', 'aiAssist.html');
+        let html = fs.readFileSync(htmlPath, 'utf8');
+
         const styleMainUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'main.css'));
+        html = html.replace('{{styleMainUri}}', styleMainUri.toString());
 
-        const htmlPath = path.join(this._extensionUri.fsPath, 'media', '/Users/P3246696/non-ps-projects/capstone/TokenCraft/tokencraft/src/html/aiAssist.html');
-        const htmlContent = fs.readFileSync(htmlPath, 'utf-8');
-
-        return "test";
-        //return htmlContent;
+        return html;
     }
 }

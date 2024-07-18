@@ -1,4 +1,6 @@
 import * as vscode from 'vscode';
+import * as path from 'path';
+import * as fs from 'fs';
 
 export class tokenQueryViewProvider implements vscode.WebviewViewProvider {
     public static readonly viewType = 'tokenCraft.tokenQuery';
@@ -15,18 +17,12 @@ export class tokenQueryViewProvider implements vscode.WebviewViewProvider {
     }
 
     private _getHtmlForWebview(webview: vscode.Webview): string {
-        const styleMainUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'main.css'));
+        const htmlPath = path.join(this._extensionUri.fsPath, 'src', 'html', 'tokenQuery.html');
+        let html = fs.readFileSync(htmlPath, 'utf8');
 
-        return `<!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Token Query</title>
-        </head>
-        <body>
-            <h1>Content</h1>
-        </body>
-        </html>`;
+        const styleMainUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'main.css'));
+        html = html.replace('{{styleMainUri}}', styleMainUri.toString());
+
+        return html;
     }
 }
