@@ -1,6 +1,14 @@
-# tokencraft README
+# TokenCraft
 
-This is the README for your extension "tokencraft". After writing up a brief description, we recommend including the following sections.
+This is the README for the extension "TokenCraft". This extension is a tool for developers to simplify their use of design tokens.
+
+## Requirements
+
+This extension uses a number of VSCode dependencies as well as PrimeNG icons. In order to properly test this extension, first install the correct dependencies using:
+
+`npm install`
+
+Then, to run a VM containing the extension, simply press `f5`
 
 ## Features
 
@@ -11,10 +19,6 @@ For example if there is an image subfolder under your extension project workspac
 \!\[feature X\]\(images/feature-x.png\)
 
 > Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
 
 ## Extension Settings
 
@@ -33,19 +37,9 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.0.1
 
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+Initial prototype of TokenCraft
 
 ---
 

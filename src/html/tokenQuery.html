@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Token Query</title>
+        <link rel="stylesheet" href="https://unpkg.com/primeicons/primeicons.css">
         <style>
             form {
                 display: flex;
@@ -27,11 +28,57 @@
             .hidden {
                 display: none;
             }
+
+            .tooltip {
+                position: absolute;
+                top: -5px;
+                left: 25px;
+                background-color: #333333;
+                color: white;
+                padding: 5px;
+                border-radius: 5px;
+                visibility: hidden;
+                opacity: 0;
+                transition: opacity 0.3s;
+                white-space: nowrap;
+            }
+
+            .tooltip::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: transparent #333 transparent transparent;
+                transform: translateY(-50%);
+            }
+
+            .label-container {
+                display: flex;
+                align-items: center;
+            }
+
+            .icon {
+                margin-left: 5px;
+                cursor: pointer;
+                position: relative;
+            }
+
+            .icon:hover .tooltip {
+                visibility: visible;
+                opacity: 1;
+            }
         </style>
     </head>
     <body>
         <form id="component-form">
-            <label for="component-type">Component Type</label>
+            <div class="label-container">
+                <label for="component-type">Component Type:</label>
+                <i class="pi pi-question-circle icon">
+                    <span class="tooltip">Select the type of component</span>
+                </i>
+            </div>
             <select id="component-type">
                 <option value="" disabled selected>Select</option>
                 <option value="button">Button</option>
@@ -40,7 +87,12 @@
         </form>
             
         <form id="color-container" class="hidden">
-            <label for="color">Color</label>
+            <div class="label-container">
+                <label for="color">Color:</label>
+                <i class="pi pi-question-circle icon">
+                    <span class="tooltip">Select the color of component</span>
+                </i>
+            </div>
             <select id="color">
                 <option value="" disabled selected>Select</option>
                 <option value="blue">Blue</option>
@@ -51,7 +103,12 @@
         </form>
 
         <form id="border-radius-container" class="hidden">
-            <label for="border-radius">Rounded Edges</label>
+            <div class="label-container">
+                <label for="border-radius">Rounded Edges:</label>
+                <i class="pi pi-question-circle icon">
+                    <span class="tooltip">Select the border radius of component</span>
+                </i>
+            </div>
             <select id="border-radius">
                 <option value="" disabled selected>Select</option>
                 <option value="none">None</option>

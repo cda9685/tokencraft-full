@@ -68,5 +68,9 @@
     "src/html/tokenQuery.html",
     "src/html/preview.html",
     "media/main.css"
-  ]
+  ],
+  "dependencies": {
+    "primeicons": "^7.0.0",
+    "primeng": "^17.18.5"
+  }
 }
