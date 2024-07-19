@@ -2,7 +2,7 @@
   "name": "tokencraft",
   "publisher": "TokenCraft",
   "displayName": "TokenCraft",
-  "description": "A tool for designers and developers to simplify their use of design tokens",
+  "description": "A tool for developers to simplify their use of design tokens",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.91.0"

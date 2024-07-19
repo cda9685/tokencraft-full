@@ -14,14 +14,23 @@
                 margin: 0 auto;
             }
 
-            label, select {
+            textarea, select {
                 margin: 5px 0;
+                border: 2px solid transparent;
+                box-shadow: 0 0 5px transparent;
             }
 
-            input:focus {
+            textarea:focus {
                 outline: none;
                 border: 2px solid #0091EA;
                 box-shadow: 0 0 5px #60abda;
+            }
+
+            #prompt {
+                width: 100%;
+                height: 100px;
+                resize: none;
+                overflow-y: auto;
             }
         </style>
     </head>
@@ -29,7 +38,7 @@
         <p>Welcome to TokenCraft! Let's find the perfect design token for your needs. I'll ask you a few questions to narrow down your options.</p>
         <p>Please provide as much information as possible about your design token:</p>
         <form id="prompt-form">
-            <input type="text" id="prompt" name="prompt" placeholder="Enter your query here...">
+            <textarea id="prompt" name="prompt" placeholder="Enter your query here..."></textarea>
             <button type="submit">Submit</button>
         </form>
 
