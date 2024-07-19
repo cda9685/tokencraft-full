@@ -12,11 +12,11 @@
                 flex-direction: column;
                 gap: 10px;
                 max-width: 300px;
-                margin: 0 auto;
             }
 
             label, select {
                 margin: 5px 0;
+                position: relative;
             }
 
             select:focus {
@@ -41,6 +41,7 @@
                 opacity: 0;
                 transition: opacity 0.3s;
                 white-space: nowrap;
+                z-index: 1000;
             }
 
             .tooltip::after {
@@ -76,7 +77,7 @@
             <div class="label-container">
                 <label for="component-type">Component Type:</label>
                 <i class="pi pi-question-circle icon">
-                    <span class="tooltip">Select the type of component</span>
+                    <span class="tooltip">The type of component</span>
                 </i>
             </div>
             <select id="component-type">
@@ -90,7 +91,7 @@
             <div class="label-container">
                 <label for="color">Color:</label>
                 <i class="pi pi-question-circle icon">
-                    <span class="tooltip">Select the color of component</span>
+                    <span class="tooltip">The color of the component</span>
                 </i>
             </div>
             <select id="color">
@@ -106,7 +107,7 @@
             <div class="label-container">
                 <label for="border-radius">Rounded Edges:</label>
                 <i class="pi pi-question-circle icon">
-                    <span class="tooltip">Select the border radius of component</span>
+                    <span class="tooltip">How round the edges are of the component</span>
                 </i>
             </div>
             <select id="border-radius">
@@ -160,6 +161,23 @@
                 sendMessage();
             });
             document.getElementById('border-radius').addEventListener('change', sendMessage);
+
+            // Resizes the tooltip depending on the side of the extension's screen
+            const icons = document.querySelectorAll('.icon');
+            icons.forEach(icon => {
+                icon.addEventListener('mouseenter', () => {
+                    const tooltip = icon.querySelector('.tooltip');
+                    const rect = tooltip.getBoundingClientRect();
+                    if (rect.right > window.innerWidth) {
+                        tooltip.style.maxWidth = `${window.innerWidth - rect.left - 20}px`;
+                        tooltip.style.whiteSpace = 'normal';
+                    }
+                    else {
+                        tooltip.style.maxWidth = '200px';
+                        tooltip.style.whiteSpace = 'nowrap';
+                    }
+                });
+            });
         </script>
     </body>
 </html>
