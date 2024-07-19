@@ -5,7 +5,29 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Token Query</title>
-        <link rel="stylesheet" type="text/css" href="{{styleMainUri}}">
+        <style>
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+
+            label, select {
+                margin: 5px 0;
+            }
+
+            select:focus {
+                outline: none;
+                border: 2px solid #0091EA;
+                box-shadow: 0 0 5px #60abda;
+            }
+
+            .hidden {
+                display: none;
+            }
+        </style>
     </head>
     <body>
         <form id="component-form">
@@ -15,7 +37,9 @@
                 <option value="button">Button</option>
                 <!-- Add more component types as needed -->
             </select>
+        </form>
             
+        <form id="color-container" class="hidden">
             <label for="color">Color</label>
             <select id="color">
                 <option value="" disabled selected>Select</option>
@@ -24,22 +48,61 @@
                 <option value="green">Green</option>
                 <!-- Add more colors as needed -->
             </select>
-            
-            <button type="button" id="generate-button">Generate</button>
+        </form>
+
+        <form id="border-radius-container" class="hidden">
+            <label for="border-radius">Rounded Edges</label>
+            <select id="border-radius">
+                <option value="" disabled selected>Select</option>
+                <option value="none">None</option>
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+                <!-- Add more sizes as needed -->
+            </select>
         </form>
 
         <script>
             const vscode = acquireVsCodeApi();
-            document.getElementById('generate-button').addEventListener('click', () => {
+            const sendMessage = () => {
                 const componentType = document.getElementById('component-type').value;
                 const color = document.getElementById('color').value;
+                const borderRadius = document.getElementById('border-radius').value;
                 
                 vscode.postMessage({
                     command: 'generate',
                     componentType: componentType,
-                    color: color
+                    color: color,
+                    borderRadius: borderRadius
                 });
+            };
+
+            document.getElementById('component-type').addEventListener('change', () => {
+                const componentType = document.getElementById('component-type').value;
+
+                if (componentType) {
+                    document.getElementById('color-container').classList.remove('hidden');
+                }
+                else {
+                    document.getElementById('color-container').classList.add('hidden');
+                }
+
+                sendMessage();
             });
+
+            document.getElementById('color').addEventListener('change', () => {
+                const color = document.getElementById('color').value;
+
+                if (color) {
+                    document.getElementById('border-radius-container').classList.remove('hidden');
+                }
+                else {
+                    document.getElementById('border-radius-container').classList.add('hidden');
+                }
+
+                sendMessage();
+            });
+            document.getElementById('border-radius').addEventListener('change', sendMessage);
         </script>
     </body>
 </html>

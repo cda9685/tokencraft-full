@@ -4,10 +4,27 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Preview</title>
-        <link rel="stylesheet" type="text/css" href="{{styleMainUri}}">
         <style>
             .preview-container {
                 margin-top: 20px;
+            }
+            
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+
+            label, select {
+                margin: 5px 0;
+            }
+
+            select:focus {
+                outline: none;
+                border: 2px solid #0091EA;
+                box-shadow: 0 0 5px #60abda;
             }
         </style>
     </head>
@@ -24,13 +41,19 @@
                 previewContainer.innerHTML = ''; // Clear previous preview
 
                 if (message.command === 'generate') {
-                    const componentType = message.componentType;
-                    const color = message.color;
+                    const { componentType, color, borderRadius } = message;
+                    const borderRadiusMap = {
+                        'none': '0px',
+                        'small': '5px',
+                        'medium': '10px',
+                        'large': '15px'
+                    };
 
                     if (componentType === 'button') {
                         const button = document.createElement('button');
                         button.textContent = 'Button';
                         button.style.backgroundColor = color;
+                        button.style.borderRadius = borderRadiusMap[borderRadius];
                         previewContainer.appendChild(button);
                     }
 

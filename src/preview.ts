@@ -32,7 +32,6 @@ export class previewViewProvider implements vscode.WebviewViewProvider {
         let html = fs.readFileSync(htmlPath, 'utf8');
 
         const styleMainUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'main.css'));
-        html = html.replace('{{styleMainUri}}', styleMainUri.toString());
 
         return html;
     }
