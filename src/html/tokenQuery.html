@@ -34,7 +34,7 @@
             .tooltip {
                 position: absolute;
                 top: -5px;
-                left: 25px;
+                left: -15px;
                 background-color: #333333;
                 color: white;
                 padding: 5px;
@@ -75,11 +75,39 @@
         </style>
     </head>
     <body>
-        <form id="component-form">
+
+        <!-- Intention Form -->
+        <form id="intention-form">
+            <div class="label-container">
+                <label for="intention">Intention:</label>
+                <i class="pi pi-question-circle icon">
+                    <!-- Tooltip -->
+                    <span class="tooltip" style="white-space: pre-wrap;">
+                        This represents what you want to do with your token. What is the intention?
+                        Changing this value will affect which tokens are changed or used.
+                        This form essentially provides the context for your component.
+                    </span>
+                </i>
+            </div>
+            <select id="intention">
+                <option value="" disabled selected>Select</option>
+                <option value="button">Update an existing component</option>
+                <option value="button">Create a new component</option>
+                <option value="button">Apply a theme</option>
+                <option value="button">Other</option>
+                <!-- Add more options as needed -->
+            </select>
+        </form>
+
+        <!-- Component Type Form -->
+        <form id="component-form" class="hidden">
             <div class="label-container">
                 <label for="component-type">Component Type:</label>
                 <i class="pi pi-question-circle icon">
-                    <span class="tooltip">The type of component</span>
+                    <!-- Tooltip -->
+                    <span class="tooltip" style="white-space: pre-wrap;">
+                        The type of component.
+                    </span>
                 </i>
             </div>
             <select id="component-type">
@@ -89,11 +117,14 @@
             </select>
         </form>
             
+        <!-- Color Form -->
         <form id="color-container" class="hidden">
             <div class="label-container">
                 <label for="color">Color:</label>
                 <i class="pi pi-question-circle icon">
-                    <span class="tooltip">The color of the component</span>
+                    <span class="tooltip" style="white-space: pre-wrap;">
+                        Changing this value affects the color of the component.
+                    </span>
                 </i>
             </div>
             <select id="color">
@@ -105,11 +136,15 @@
             </select>
         </form>
 
+        <!-- Border-Radius Form -->
         <form id="border-radius-container" class="hidden">
             <div class="label-container">
                 <label for="border-radius">Rounded Edges:</label>
                 <i class="pi pi-question-circle icon">
-                    <span class="tooltip">How round the edges are of the component</span>
+                    <span class="tooltip" style="white-space: pre-wrap;">
+                        Changing this value affects the border-radius of the component.
+                        The larger the value, the more round the edges will be.
+                    </span>
                 </i>
             </div>
             <select id="border-radius">
@@ -125,17 +160,33 @@
         <script>
             const vscode = acquireVsCodeApi();
             const sendMessage = () => {
+                const intention = document.getElementById('intention').value;
                 const componentType = document.getElementById('component-type').value;
                 const color = document.getElementById('color').value;
                 const borderRadius = document.getElementById('border-radius').value;
+                let generatedHTML = '';
                 
                 vscode.postMessage({
                     command: 'generate',
+                    intention: intention,
                     componentType: componentType,
                     color: color,
                     borderRadius: borderRadius
                 });
             };
+
+            document.getElementById('intention').addEventListener('change', () => {
+                const intention = document.getElementById('intention').value;
+
+                if (intention) {
+                    document.getElementById('component-form').classList.remove('hidden');
+                }
+                else {
+                    document.getElementById('component-form').classList.add('hidden');
+                }
+
+                sendMessage();
+            });
 
             document.getElementById('component-type').addEventListener('change', () => {
                 const componentType = document.getElementById('component-type').value;
@@ -170,14 +221,10 @@
                 icon.addEventListener('mouseenter', () => {
                     const tooltip = icon.querySelector('.tooltip');
                     const rect = tooltip.getBoundingClientRect();
-                    if (rect.right > window.innerWidth) {
-                        tooltip.style.maxWidth = `${window.innerWidth - rect.left - 20}px`;
-                        tooltip.style.whiteSpace = 'normal';
-                    }
-                    else {
-                        tooltip.style.maxWidth = '200px';
-                        tooltip.style.whiteSpace = 'nowrap';
-                    }
+                    // if (rect.right > window.innerWidth) {
+                    //     tooltip.style.maxWidth = `${window.innerWidth - rect.left - 20}px`;
+                    //     tooltip.style.whiteSpace = 'normal';
+                    // }
                 });
             });
         </script>

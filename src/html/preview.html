@@ -6,7 +6,13 @@
         <title>Preview</title>
         <style>
             .preview-container {
+                display: grid;
+                place-items: center;
                 margin-top: 20px;
+                width: 200px;
+                height: 200px;
+                border-radius: 10px;
+                background-color: lightgray;
             }
             
             form {
@@ -51,6 +57,7 @@
 
                     if (componentType === 'button') {
                         const button = document.createElement('button');
+                        button.style.zIndex = 1000;
                         button.textContent = 'Button';
                         button.style.backgroundColor = color;
                         button.style.borderRadius = borderRadiusMap[borderRadius];
