@@ -32,11 +32,21 @@
                 border: 2px solid #0091EA;
                 box-shadow: 0 0 5px #60abda;
             }
+
+            .html-output {
+                margin-top: 20px;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
         </style>
     </head>
     <body>
         <div class="preview-container" id="preview-container">
             <!-- Preview will be displayed here -->
+        </div>
+        <div class="html-output" id="html-output">
+            <!-- HTML code will be displayed here -->
         </div>
 
         <script>
@@ -44,7 +54,9 @@
             window.addEventListener('message', event => {
                 const message = event.data;
                 const previewContainer = document.getElementById('preview-container');
+                const htmlOutput = document.getElementById('html-output');
                 previewContainer.innerHTML = ''; // Clear previous preview
+                htmlOutput.textContent = message.generatedHTML;
 
                 if (message.command === 'generate') {
                     const { componentType, color, borderRadius } = message;
