@@ -172,11 +172,6 @@
                 const componentType = document.getElementById('component-type').value;
                 const color = document.getElementById('color').value;
                 const borderRadius = document.getElementById('border-radius').value;
-                let generatedHTML = '';
-
-                if (componentType === 'button') {
-                    generatedHTML = "<button style=\"color=" + color + "; border-radius=" + borderRadius + "\">Button</button>";
-                }
                 
                 vscode.postMessage({
                     command: 'generate',
@@ -184,7 +179,6 @@
                     componentType: componentType,
                     color: color,
                     borderRadius: borderRadius,
-                    generatedHTML: generatedHTML
                 });
             };
 

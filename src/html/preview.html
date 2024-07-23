@@ -56,7 +56,6 @@
                 const previewContainer = document.getElementById('preview-container');
                 const htmlOutput = document.getElementById('html-output');
                 previewContainer.innerHTML = ''; // Clear previous preview
-                htmlOutput.textContent = message.generatedHTML;
 
                 if (message.command === 'generate') {
                     const { componentType, color, borderRadius } = message;
@@ -74,6 +73,7 @@
                         button.style.backgroundColor = color;
                         button.style.borderRadius = borderRadiusMap[borderRadius];
                         previewContainer.appendChild(button);
+                        htmlOutput.textContent = button.outerHTML;
                     }
 
                     // Add more component generation logic as needed
