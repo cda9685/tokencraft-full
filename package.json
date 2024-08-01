@@ -71,6 +71,7 @@
   ],
   "dependencies": {
     "primeicons": "^7.0.0",
-    "primeng": "^17.18.5"
+    "primeng": "^17.18.5",
+    "tokencraft": "file:"
   }
 }

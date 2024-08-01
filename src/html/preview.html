@@ -79,6 +79,16 @@
                     // Add more component generation logic as needed
                 }
             });
+
+            function htmlFormatter(html) {
+                let formattedHtml = "";
+                let parsedHtml = html.split(' ');
+
+                for (token in parsedHtml) {
+                    // If token contains >, enter and tab
+                    // If the token contains </, enter and back-tab
+                }
+            }
         </script>
     </body>
 </html>
