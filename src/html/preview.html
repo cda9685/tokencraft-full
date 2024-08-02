@@ -38,6 +38,7 @@
                 padding: 10px;
                 border: 1px solid #ddd;
                 border-radius: 5px;
+                white-space: pre-wrap;
             }
         </style>
     </head>
@@ -73,21 +74,36 @@
                         button.style.backgroundColor = color;
                         button.style.borderRadius = borderRadiusMap[borderRadius];
                         previewContainer.appendChild(button);
-                        htmlOutput.textContent = button.outerHTML;
+                        htmlFormatter(button.outerHTML, htmlOutput);
                     }
 
                     // Add more component generation logic as needed
                 }
             });
 
-            function htmlFormatter(html) {
+            /**
+             * Pretty-prints the component's HTML code
+             * @param html: string;  A string object containing the HTML code
+             * @param htmlContainer: HTMLElement;  An HTML element that will display the HTML code
+             */
+            function htmlFormatter(html, htmlContainer) {
                 let formattedHtml = "";
-                let parsedHtml = html.split(' ');
+                let parsedHtml = html.split('');
 
-                for (token in parsedHtml) {
-                    // If token contains >, enter and tab
-                    // If the token contains </, enter and back-tab
+                for (let i = 0; i < parsedHtml.length; i++) {
+                    if (parsedHtml[i] == ">") {
+                        formattedHtml += parsedHtml[i] + "\n\t";
+                    }
+                    else if (parsedHtml[i] == "<" && parsedHtml[i + 1] == "/") {
+                        formattedHtml += "\n" + parsedHtml[i++] + parsedHtml[i];
+                    }
+                    else {
+                        formattedHtml += parsedHtml[i];
+                    }
                 }
+
+                formattedHtml = formattedHtml.substring(0, formattedHtml.length - 1);
+                htmlContainer.textContent = formattedHtml;
             }
         </script>
     </body>
